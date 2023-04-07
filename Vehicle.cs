@@ -15,6 +15,7 @@ namespace MyVehicle
     {
         protected string name;
         protected double weight; //  Kg
+        protected int seats;
         protected Random rnd = new Random();
 
         public string Name { get => name; set => name = value; }
@@ -29,6 +30,19 @@ namespace MyVehicle
                     weight = 0; 
                 } 
             } 
+        }
+        virtual public int Seats
+        {
+            get => seats;
+            set
+            {
+                if (value > 0) weight = value;
+                else
+                {
+                    Console.WriteLine("должно быть минимум одно место\nПрисвоено 1 место\n");
+                    seats = 1;
+                }
+            }
         }
 
         public Vehicle()
