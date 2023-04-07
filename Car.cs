@@ -82,6 +82,19 @@ namespace MyVehicle
                 }
             }
         }
+        public int Year
+        {
+            get => year;
+            set
+            {
+                if (value > 0) year = value;
+                else
+                {
+                    Console.WriteLine("год не может быть мегьше нуля\nприсвоено 2012");
+                    year = 2012;
+                }
+            }
+        }
         public Car()
         {
             brand = brands[rnd.Next(0, brands.Length - 1)];
@@ -99,7 +112,57 @@ namespace MyVehicle
             Model = modelP;
             Type = typeP;
             BodyWork = bodyWorkP;
-            engCapacityP = en
+            EngineCapacity = engCapacityP;
+            year = yearP;
+            Weight = weightP;
+            Seats = seatsP;
+        }
+        public Car(Car car)
+        {
+            this.brand = car.brand;
+            this.Model = car.model;
+            this.Type = car.type;
+            this.BodyWork = car.bodyWork;
+            this.seats = car.seats;
+            this.weight = car.weight;
+            this.engineСapacity = car.engineСapacity;
+            this.year = car.year;
+        }
+        public override string ToString()
+        {
+            return $"атвомобиль {bodyWork} категории {type} {name} {year}г";
+        }
+        public override void Show()
+        {
+            Console.WriteLine
+            (
+                $"автомобиль\n" +
+                $"категория {type}" +
+                $"{name}\n" +
+                $"{bodyWork}\n" +
+                $"год {year}\n" +
+                $"мест {seats}\n" +
+                $"V дигателя {engineСapacity}\n" +
+                $"Вес {weight}\n"
+            );
+        }
+        public new object Clone() => new Car("клон" + brand, model, type, bodyWork, engineСapacity, year, weight, seats);
+        public override Vehicle ShallowCopy()
+        {
+            return (Car)MemberwiseClone();
+        }
+        public override bool Equals(object obj)
+        {
+            Car v = (Car)obj;
+            return name == v.Name && weight == v.Weight;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+        public override int CompareTo(object obj)
+        {
+            return string.Compare(name, ((Car)obj).name);
         }
 
     }
