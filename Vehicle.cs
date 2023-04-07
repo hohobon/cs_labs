@@ -73,7 +73,7 @@ namespace MyVehicle
         }
 
         public object Clone() => new Vehicle("Клон" + name, Weight);
-        public Vehicle ShallowCopy()
+        public virtual Vehicle ShallowCopy()
         {
             return (Vehicle)MemberwiseClone();
         }
@@ -86,7 +86,7 @@ namespace MyVehicle
         {
             return base.GetHashCode();
         }
-        public int CompareTo(object obj)
+        public virtual int CompareTo(object obj)
         {
             return string.Compare(name, ((Vehicle)obj).name);
         }
