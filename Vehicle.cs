@@ -62,12 +62,6 @@ namespace MyVehicle
             Speed = s;
             Weight = w;
         }
-        //public void SetSpeed()
-        //{
-        //    Console.WriteLine("Введите cкорость:");
-        //    bool ok = false;
-        //    while (!ok) ok = Something("Скорость не может быть отрицательной\n", ref speed, 0);
-        //}
         public override string ToString()
         {
             return $"Tранспортное средство {name} {Speed}Kм/ч {weight} Кг";
@@ -93,10 +87,6 @@ namespace MyVehicle
         }
         public int CompareTo(object obj)
         {
-            //Vehicle tmp = (Vehicle)obj;
-            //if (this.weight > tmp.weight) return 1;
-            //if (this.weight < tmp.weight) return -1;
-            //return 0;
             return string.Compare(name, ((Vehicle)obj).name);
         }
     }
