@@ -14,22 +14,11 @@ namespace MyVehicle
     public class Vehicle: IExecutable, ICloneable, IComparable
     {
         protected string name;
-        protected double speed; //  Km/H
         protected double weight; //  Kg
         protected Random rnd = new Random();
 
         public string Name { get => name; set => name = value; }
-        virtual public double Speed 
-        {   get => speed; 
-            set 
-            {   if (value > 0) speed = value;
-                else 
-                { 
-                Console.WriteLine("\nСкорость не может быть отрицательной\nПрисвоено 0 Км/ч\n"); 
-                speed = 0; 
-                } 
-            } 
-        }
+        
         virtual public double Weight 
         {   get => weight; 
             set 
@@ -53,25 +42,23 @@ namespace MyVehicle
             };
 
             Name = names[rnd.Next(0, names.Length - 1)];
-            Speed = rnd.Next(10, 300);
             Weight = Math.Round(0.01 * rnd.Next(1, 8600), 2) + 0.1;
         }
-        public Vehicle(string n, double s, double w)
+        public Vehicle(string n, double w)
         {
             Name = n;
-            Speed = s;
             Weight = w;
         }
         public override string ToString()
         {
-            return $"Tранспортное средство {name} {Speed}Kм/ч {weight} Кг";
+            return $"Tранспортное средство {name} {weight} Кг";
         }
         public virtual void Show()
         {
-            Console.WriteLine($"Транспортное средство:\nНазвание: {name}\n Cкорость: {Speed} Kм/ч\nВес: {weight}Кг\n");
+            Console.WriteLine($"Транспортное средство:\nНазвание: {name}\nВес: {weight}Кг\n");
         }
 
-        public object Clone() => new Vehicle("Клон" + name, Speed, Weight);
+        public object Clone() => new Vehicle("Клон" + name, Weight);
         public Vehicle ShallowCopy()
         {
             return (Vehicle)MemberwiseClone();
@@ -79,7 +66,7 @@ namespace MyVehicle
         public override bool Equals(object obj)
         {
             Vehicle v = (Vehicle)obj;
-            return Speed == v.Speed && name == v.Name && weight == v.Weight;
+            return name == v.Name && weight == v.Weight;
         }
         public override int GetHashCode()
         {

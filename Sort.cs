@@ -20,17 +20,6 @@ namespace MyVehicle
                 return 0;
             }
         }
-        public class SortBySpeed : IComparer
-        {
-            int IComparer.Compare(object x, object y)
-            {
-                Vehicle v1 = (Vehicle)x;
-                Vehicle v2 = (Vehicle)y;
-                if (v1.Speed > v2.Speed) return 1;
-                if (v1.Speed < v2.Speed) return -1;
-                return 0;
-            }
-        }
         public class SortByName : IComparer
         {
             int IComparer.Compare(object x, object y)
