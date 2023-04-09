@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
-using ENTGS;
 using MyVehicle;
 
 namespace MyVehicle
@@ -16,7 +15,7 @@ namespace MyVehicle
         protected string name;
         protected double weight; //  Kg
         protected int seats;
-        protected Random rnd = new Random();
+        protected readonly Random  rnd = new Random();
 
         public string Name { get => name; set => name = value; }
         

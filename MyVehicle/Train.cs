@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace MyVehicle
 {
-    internal class Train : Vehicle
+    public class Train : Vehicle
     {
-        int numOfWagons;
-        int numOfLocomotives;
-        int numOfSeatsPerWagon;
+        protected int numOfWagons;
+        protected int numOfLocomotives;
+        protected int numOfSeatsPerWagon;
         //int seatsPerWagon;
-        string type;
-        int wghtOfLocomotive;
-        int wghtOfWagon;
-        int routeNum;
+        protected string type;
+        protected int wghtOfLocomotive;
+        protected int wghtOfWagon;
+        protected int routeNum;
 
         string[] types =
         {
@@ -29,7 +29,7 @@ namespace MyVehicle
             {
                 if (value > 0) numOfWagons = value;
                 else numOfWagons = 0;
-                name = $"{type} {routeNum}-{numOfLocomotives}-{numOfWagons}";
+                name = $"{type} поезд {routeNum}-{numOfLocomotives}-{numOfWagons}";
             }
         }
         public string Type
@@ -38,7 +38,7 @@ namespace MyVehicle
             set
             {
                 type = value;
-                name = $"{type} {routeNum}-{numOfLocomotives}-{numOfWagons}";
+                name = $"{type} поезд {routeNum}-{numOfLocomotives}-{numOfWagons}";
             }
         }
         public int WghtOfLocomotive
@@ -66,7 +66,7 @@ namespace MyVehicle
             {
                 if (value > 0 && value < 1000) routeNum = value;
                 else routeNum = 0;
-                name = $"{type} {routeNum}-{numOfLocomotives}-{numOfWagons}";
+                name = $"{type} поезд {routeNum}-{numOfLocomotives}-{numOfWagons}";
             }
         }
         public int NumOfLocomotives
@@ -76,7 +76,7 @@ namespace MyVehicle
             {
                 if (value != 1 && value != 2) numOfLocomotives = value;
                 else numOfLocomotives = 1;
-                name = $"{type} {routeNum}-{numOfLocomotives}-{numOfWagons}";
+                name = $"{type} поезд {routeNum}-{numOfLocomotives}-{numOfWagons}";
             }
 
         }
@@ -100,7 +100,7 @@ namespace MyVehicle
             wghtOfWagon = rnd.Next(10, 200);
             routeNum = rnd.Next(1, 940);
             weight = numOfWagons * wghtOfWagon + numOfLocomotives * wghtOfLocomotive;
-            name = $"{type} {routeNum}-{numOfLocomotives}-{numOfWagons}";
+            name = $"{type} поезд {routeNum}-{numOfLocomotives}-{numOfWagons}";
             seats = numOfSeatsPerWagon * numOfWagons;
         }
         public Train(int numOfWagons, int numOfLocomotives, int numOfSeatsPerWagon, string type, int wghtOfLocomotive, int wghtOfWagon, int routeNum)
@@ -114,9 +114,8 @@ namespace MyVehicle
             RouteNum = routeNum;
             NumOfWagons = numOfWagons;
             weight = numOfWagons * wghtOfWagon + numOfLocomotives * wghtOfLocomotive;
-            name = $"{type} {routeNum}-{numOfLocomotives}-{numOfWagons}";
+            name = $"{type} поезд {routeNum}-{numOfLocomotives}-{numOfWagons}";
             seats = numOfSeatsPerWagon * numOfWagons;
-
         }
         public Train(Train train)
         {
