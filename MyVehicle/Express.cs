@@ -1,56 +1,173 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyVehicle
 {
-    public class Express: Train
+    public class Express : Train
     {
-        double ticketCost;
-        readonly new string type;
-        int numOfBusinessSeats;
-        int numOfDefaultSeats;
-        readonly new int numOfLocomotives;
-        readonly new int numOfWagons;
+        protected readonly new string type;
+        protected int numOfBusinessWagons;
+        protected int numOfDefaultWagons;
+        protected int numOfSeatsPerBusinessW;
+        protected int numOfSeatsPerDefaultW;
+        protected new readonly int numOfLocomotives;
+        protected new int numOfWagons;
+        protected new int numOfSeatsPerWagon;
+        private new int seats;
+        private new string name;
 
-        double TicketCost
+        int NumOfBusinessWagons
         {
-            get => ticketCost;
+            get => numOfBusinessWagons;
             set
             {
-                if (value > 0) ticketCost = value;
-                else ticketCost = 100;
+                numOfBusinessWagons = (value > 0) ? _ = value : _ = 4;
+                SetSeats(numOfSeatsPerBusinessW * numOfBusinessWagons + numOfSeatsPerDefaultW * numOfDefaultWagons);
             }
         }
-        int NumOfBusinessSeats
+        int NumOfSeatsPerBusinessW
         {
-            get => numOfBusinessSeats;
-            set => numOfBusinessSeats = (value > 40) ? _ = value : _ = 40;
+            get => numOfSeatsPerBusinessW;
+            set 
+            {
+                if (value > 0 && value < 99)
+                {
+                    if (value > 9) numOfBusinessWagons = value;
+                    else numOfBusinessWagons = value * 10;
+                }
+                else numOfBusinessWagons = 48;
+                SetSeats(numOfSeatsPerBusinessW * numOfBusinessWagons + numOfSeatsPerDefaultW * numOfDefaultWagons);
+            }
         }
-        int NumOfDefaultSeats
+        int NumOfDefaultWagons
         {
-            get => numOfDefaultSeats;
-            set => numOfDefaultSeats = (value > 40) ? _ = value : _ = 40;
+            get => numOfDefaultWagons;
+            set
+            {
+                numOfDefaultWagons = (value > 0) ? _ = value : _ = 4;
+                SetSeats(numOfSeatsPerBusinessW * numOfBusinessWagons + numOfSeatsPerDefaultW * numOfDefaultWagons);
+            }
+        }
+        int NumOfSeatsPerDefaultW
+        {
+            get => NumOfSeatsPerDefaultW;
+            set
+            {
+                if (value > 0 && value < 99)
+                {
+                    if (value > 9) NumOfSeatsPerDefaultW = value;
+                    else NumOfSeatsPerDefaultW = value * 10;
+                }
+                else NumOfSeatsPerDefaultW = 64;
+                SetSeats(numOfSeatsPerBusinessW * numOfBusinessWagons + numOfSeatsPerDefaultW * numOfDefaultWagons);
+            }
         }
 
+        public override int NumOfWagons
+        {
+            get => numOfWagons;
+        }
+        public override int RouteNum
+        {
+            get => routeNum;
+            set
+            {
+                if (value > 0 && value < 1000) routeNum = value;
+                else routeNum = 700;
+                RefreshName();
+            }
+        }
+
+        public override int Seats { get => seats; }
+
+        private void SetSeats(int value)
+        {
+            seats = value;
+            RefreshName();
+            numOfSeatsPerWagon = (int)Math.Round((double)(numOfSeatsPerBusinessW + numOfSeatsPerDefaultW) / 2, MidpointRounding.AwayFromZero);
+        }
+        public override string Name { get => name; }
+        private void SetName(string value)
+        {
+            name = value;
+        }
+        private void RefreshName ()
+        {
+            name = $"{type} экспресс {routeNum}-{numOfLocomotives}-{numOfWagons}";
+        }
+        public void RefreshWeight()
+        {
+            weight = numOfWagons * wghtOfWagon + numOfLocomotives * wghtOfLocomotive;
+        }
 
         public Express() 
         {
-            numOfBusinessSeats = rnd.Next(4, 8) * 10;
-            numOfDefaultSeats = rnd.Next(4, 12) * 10;
-            ticketCost = 100 - Math.Round(rnd.NextDouble(), 2) * (-400);
+            numOfBusinessWagons = rnd.Next(4, 8);
+            numOfDefaultWagons = rnd.Next(4, 12);
+            numOfSeatsPerBusinessW = 48;
+            numOfSeatsPerDefaultW = 64;
             type = "пассажирский";
             numOfLocomotives = 2;
-            numOfSeatsPerWagon = 10 * rnd.Next(20, 50);
-            seats = numOfBusinessSeats + numOfDefaultSeats;
-            numOfWagons = (int)Math.Round((Double)seats / numOfSeatsPerWagon, MidpointRounding.AwayFromZero); 
-            wghtOfLocomotive = rnd.Next(40 - 60);
+            numOfSeatsPerWagon = (int)Math.Round((double)(numOfSeatsPerBusinessW + numOfSeatsPerDefaultW)/2, MidpointRounding.AwayFromZero);
+            seats = numOfSeatsPerBusinessW * numOfBusinessWagons + numOfSeatsPerDefaultW * numOfDefaultWagons;
+            numOfWagons = numOfBusinessWagons + numOfDefaultWagons;
+            wghtOfLocomotive = rnd.Next(20 - 40) * 10;
             wghtOfWagon = rnd.Next(10, 20) * 10;
             routeNum = rnd.Next(700, 890);
             weight = numOfWagons * wghtOfWagon + numOfLocomotives * wghtOfLocomotive;
-            name = $"{type} экспресс {routeNum}-{numOfLocomotives}-{numOfWagons}";
+        }
+        public Express(int routeID, int numOfBW, int numOfSPerBW, int numOfDW, int numOfSPerDW, int wghtOfW, int wghtOfL)
+        {
+            RouteNum = routeID;
+            NumOfBusinessWagons = numOfBW;
+            NumOfSeatsPerBusinessW = numOfSPerBW;
+            NumOfDefaultWagons = numOfDW;
+            NumOfSeatsPerDefaultW = numOfSPerDW;
+            WghtOfLocomotive = wghtOfL;
+            WghtOfWagon = wghtOfW;
+        }
+        public Express (Express express)
+        {
+            numOfBusinessWagons = express.numOfBusinessWagons;
+            numOfDefaultWagons = express.numOfDefaultWagons;
+            numOfSeatsPerBusinessW = express.numOfSeatsPerBusinessW;
+            numOfSeatsPerDefaultW = express.numOfSeatsPerDefaultW;
+            type = "пассажирский";
+            numOfLocomotives = 2;
+            numOfSeatsPerWagon = express.numOfSeatsPerWagon;
+            Seats = express.Seats;
+            numOfWagons = express.numOfWagons;
+            wghtOfLocomotive = express.wghtOfLocomotive;
+            wghtOfWagon = express.wghtOfWagon;
+            routeNum = express.routeNum;
+            weight = express.weight;
+        }
+        public new object Clone()
+        {
+            Express expressClone = new Express(this);
+            expressClone.name = "Клон " + this.name;
+            return expressClone;
+        }
+        public override Vehicle ShallowCopy()
+        {
+            return (Train)MemberwiseClone();
+        }
+        public override bool Equals(object obj)
+        {
+            Express v = (Express)obj;
+            return name == v.Name && weight == v.Weight;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+        public override int CompareTo(object obj)
+        {
+            return string.Compare(name, ((Express)obj).name);
         }
     }
 }

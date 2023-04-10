@@ -17,12 +17,12 @@ namespace MyVehicle
         protected int wghtOfWagon;
         protected int routeNum;
 
-        string[] types =
+        readonly string[] types =
         {
             "пассажирский","грузовой","хозяйственный",
             "воинский", "санитарный", "броневой"
         };
-        public int NumOfWagons
+        virtual public int NumOfWagons
         {
             get => numOfWagons;
             set
@@ -47,7 +47,7 @@ namespace MyVehicle
             set
             {
                 if (value > 0) wghtOfLocomotive = value;
-                else wghtOfLocomotive = 10;
+                else wghtOfLocomotive = 250;
             }
         }
         public int WghtOfWagon
@@ -56,10 +56,10 @@ namespace MyVehicle
             set
             {
                 if (value > 0) wghtOfWagon = value;
-                else wghtOfWagon = 15;
+                else wghtOfWagon = 150;
             }
         }
-        public int RouteNum
+        virtual public int RouteNum
         {
             get => routeNum;
             set
@@ -86,17 +86,18 @@ namespace MyVehicle
             set
             {
                 if (value >= 0) numOfSeatsPerWagon = value;
-                else numOfSeatsPerWagon = 0;
+                else numOfSeatsPerWagon = 20;
             }
         }
+        
 
         public Train()
         { 
             numOfWagons = rnd.Next(0, 100);
             numOfLocomotives = rnd.Next(0,3);
-            numOfSeatsPerWagon = rnd.Next(0,80);
+            numOfSeatsPerWagon = rnd.Next(1,6) * 10;
             type = types[rnd.Next(types.Length - 1)];
-            wghtOfLocomotive = rnd.Next(40 - 80);
+            wghtOfLocomotive = rnd.Next(40 - 80) * 10;
             wghtOfWagon = rnd.Next(10, 200);
             routeNum = rnd.Next(1, 940);
             weight = numOfWagons * wghtOfWagon + numOfLocomotives * wghtOfLocomotive;
@@ -119,16 +120,16 @@ namespace MyVehicle
         }
         public Train(Train train)
         {
-            this.numOfLocomotives = train.numOfLocomotives;
-            this.numOfWagons = train.numOfWagons;
-            this.numOfSeatsPerWagon = train.numOfSeatsPerWagon;
-            this.wghtOfLocomotive = train.wghtOfLocomotive;
-            this.wghtOfWagon = train.wghtOfWagon;
-            this.type = train.type;
-            this.routeNum = train.routeNum;
-            this.name = train.name;
-            this.weight = train.weight;
-            this.seats = train.seats;
+            numOfLocomotives = train.numOfLocomotives;
+            numOfWagons = train.numOfWagons;
+            numOfSeatsPerWagon = train.numOfSeatsPerWagon;
+            wghtOfLocomotive = train.wghtOfLocomotive;
+            wghtOfWagon = train.wghtOfWagon;
+            type = train.type;
+            routeNum = train.routeNum;
+            name = train.name;
+            weight = train.weight;
+            seats = train.seats;
         }
         public override string ToString()
         {

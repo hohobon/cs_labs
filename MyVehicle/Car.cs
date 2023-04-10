@@ -18,19 +18,19 @@ namespace MyVehicle
         protected float engineСapacity;
         protected int year;
 
-        static char[] types = { 'A', 'B', 'C', 'D', 'E', 'F', 'J', 'M', 'S' };
-        static string[] bodyWorks =
+        readonly char[] types = { 'A', 'B', 'C', 'D', 'E', 'F', 'J', 'M', 'S' };
+        readonly string[] bodyWorks =
         {
             "седан", "купе", "универсал", "лимузин",
             "хэтчбек", "лифтбэк","пикап кабриолет",
             "минивэн", "микроавтобус", "внедорожник"
         };
-        static string[] brands =
+        readonly string[] brands =
         {
           "BMV", "Audi", "Bugatti", "Buick", "Cadillac",
           "Chery", "Citroen", "Fiat", "Honda", "Jeep", "Lexus",
         };
-        static string[] models =
+        readonly string[] models =
         {
             "A1", "A2", "A3", "A4",
             "A5", "A6", "A7", "A8",

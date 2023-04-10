@@ -17,17 +17,17 @@ namespace MyVehicle
         protected int seats;
         protected readonly Random  rnd = new Random();
 
-        public string Name { get => name; set => name = value; }
+        virtual public string Name { get => name; set => name = value; }
         
         virtual public double Weight 
         {   get => weight; 
             set 
             {   if (value > 0) weight = value;
                 else 
-                {   
+                {
                     Console.WriteLine("Вес не может быть отрицательным\nПрисвоено 0 кг\n"); 
                     weight = 0; 
-                } 
+                }
             } 
         }
         virtual public int Seats
@@ -56,22 +56,34 @@ namespace MyVehicle
 
             Name = names[rnd.Next(0, names.Length - 1)];
             Weight = Math.Round(0.01 * rnd.Next(1, 8600), 2) + 0.1;
+            Seats = rnd.Next(1, 20);
         }
-        public Vehicle(string n, double w)
+        public Vehicle(string n, double w, int seats)
         {
             Name = n;
             Weight = w;
+            Seats = seats;
+        }
+        public Vehicle(Vehicle vehicle)
+        {
+            name = vehicle.Name;
+            weight = vehicle.Weight;
+            seats = vehicle.Seats;
         }
         public override string ToString()
         {
-            return $"Tранспортное средство {name} {weight} Кг";
+            return $"Tранспортное средство {name} m{weight} мест {seats}";
         }
         public virtual void Show()
         {
-            Console.WriteLine($"Транспортное средство:\nНазвание: {name}\nВес: {weight}Кг\n");
+            Console.WriteLine($"Транспортное средство:\nНазвание: {name}\nВес: {weight}\nМест: {seats}");
         }
 
-        public object Clone() => new Vehicle("Клон" + name, Weight);
+        public object Clone()
+        {
+            Vehicle cloneVehicle = new Vehicle(this);
+            return cloneVehicle;
+        }
         public virtual Vehicle ShallowCopy()
         {
             return (Vehicle)MemberwiseClone();
