@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,6 +19,7 @@ namespace MyVehicle
         protected string bodyWork;
         protected float engineСapacity;
         protected int year;
+        protected new string name;
 
         readonly char[] types = { 'A', 'B', 'C', 'D', 'E', 'F', 'J', 'M', 'S' };
         readonly string[] bodyWorks =
@@ -30,6 +33,12 @@ namespace MyVehicle
           "BMV", "Audi", "Bugatti", "Buick", "Cadillac",
           "Chery", "Citroen", "Fiat", "Honda", "Jeep", "Lexus",
         };
+        public override string Name{ get => name; }
+        private void RefreshName()
+        {
+            name = brand + " " + model;
+        }
+        
         readonly string[] models =
         {
             "A1", "A2", "A3", "A4",
@@ -46,7 +55,7 @@ namespace MyVehicle
             set
             {
                 brand = value;
-                name = brand + " " + model;
+                RefreshName();
             }
         }
         public string Model
@@ -55,7 +64,7 @@ namespace MyVehicle
             set
             {
                 model = value;
-                name = brand + " " + model;
+                RefreshName();
             }
         }
         public char Type

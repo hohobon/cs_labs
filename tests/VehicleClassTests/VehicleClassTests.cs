@@ -48,6 +48,9 @@ namespace VehicleClassTests
             veh = new Vehicle();
             expected = false;
             Assert.AreEqual(expected, clone.Equals(veh));
+            clone = null;
+            expected = false;
+            Assert.AreEqual (expected, veh.Equals(clone));
         }
     }
 }
