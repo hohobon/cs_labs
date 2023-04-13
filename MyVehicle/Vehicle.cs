@@ -35,7 +35,7 @@ namespace MyVehicle
             get => seats;
             set
             {
-                if (value > 0) weight = value;
+                if (value > 0) seats = value;
                 else
                 {
                     Console.WriteLine("должно быть минимум одно место\nПрисвоено 1 место\n");
@@ -72,11 +72,11 @@ namespace MyVehicle
         }
         public override string ToString()
         {
-            return $"Tранспортное средство {name} m{weight} мест {seats}";
+            return $"Tранспорт средство {name} m{weight} мест {seats}";
         }
         public virtual void Show()
         {
-            Console.WriteLine($"Транспортное средство:\nНазвание: {name}\nВес: {weight}\nМест: {seats}");
+            Console.WriteLine($"Транспорт средство:\nНазвание: {name}\nВес: {weight}\nМест: {seats}");
         }
 
         public object Clone()
@@ -90,8 +90,15 @@ namespace MyVehicle
         }
         public override bool Equals(object obj)
         {
-            Vehicle v = (Vehicle)obj;
-            return name == v.Name && weight == v.Weight;
+            if ((obj == null) || (GetType() != obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Vehicle v = (Vehicle)obj;
+                return (name == v.Name) && (weight == v.Weight) && (seats == v.Seats);
+            }
         }
         public override int GetHashCode()
         {
