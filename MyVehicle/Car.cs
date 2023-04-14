@@ -17,7 +17,7 @@ namespace MyVehicle
         protected string model;
         protected char type;
         protected string bodyWork;
-        protected float engineСapacity;
+        protected double engineСapacity;
         protected int year;
         protected new string name;
 
@@ -33,7 +33,7 @@ namespace MyVehicle
           "BMV", "Audi", "Bugatti", "Buick", "Cadillac",
           "Chery", "Citroen", "Fiat", "Honda", "Jeep", "Lexus",
         };
-        public override string Name{ get => name; }
+        public string Name{ get => name; }
         private void RefreshName()
         {
             name = brand + " " + model;
@@ -77,7 +77,7 @@ namespace MyVehicle
             get => bodyWork;
             set => bodyWork = value;
         }
-        public float EngineCapacity
+        public double EngineCapacity
         {
             get => engineСapacity;
             set
@@ -86,7 +86,7 @@ namespace MyVehicle
                 else
                 {
                     Console.WriteLine("объем двигателя не может быть отрицательным\n Присовено 0.5\n");
-                    engineСapacity = (float)0.5; 
+                    engineСapacity = 0.5; 
                 }
             }
         }
@@ -114,7 +114,7 @@ namespace MyVehicle
             weight = Math.Round(0.01 * rnd.Next(1, 8600), 2) + 0.1;
             seats = rnd.Next(1, 7);
         }
-        public Car(string brandP, string modelP, char typeP, string bodyWorkP, float engCapacityP, int yearP, double weightP, int seatsP)
+        public Car(string brandP, string modelP, char typeP, string bodyWorkP, double engCapacityP, int yearP, double weightP, int seatsP)
         {
             Brand = brandP;
             Model = modelP;
