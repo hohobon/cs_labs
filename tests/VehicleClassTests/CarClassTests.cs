@@ -49,7 +49,7 @@ namespace VehicleClassTests
 
             expected = new Car(car)
             {
-                Brand = $"клон{car.Brand}"
+                Brand = $"клон {car.Brand}"
             };
             actual = (Car)car.Clone();
             Assert.AreEqual(expected, actual);

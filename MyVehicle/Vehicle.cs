@@ -36,11 +36,8 @@ namespace MyVehicle
             set
             {
                 if (value > 0) seats = value;
-                else
-                {
-                    Console.WriteLine("должно быть минимум одно место\nПрисвоено 1 место\n");
-                    seats = 1;
-                }
+                else seats = 0;
+                
             }
         }
 

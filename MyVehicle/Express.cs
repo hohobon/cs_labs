@@ -26,7 +26,7 @@ namespace MyVehicle
             set
             {
                 numOfBusinessWagons = (value > 0) ? _ = value : _ = 4;
-                SetSeats(numOfSeatsPerBusinessW * numOfBusinessWagons + numOfSeatsPerDefaultW * numOfDefaultWagons);
+                RefreshSeats();
             }
         }
         int NumOfSeatsPerBusinessW
@@ -40,7 +40,7 @@ namespace MyVehicle
                     else numOfBusinessWagons = value * 10;
                 }
                 else numOfBusinessWagons = 48;
-                SetSeats(numOfSeatsPerBusinessW * numOfBusinessWagons + numOfSeatsPerDefaultW * numOfDefaultWagons);
+                RefreshSeats();
             }
         }
         int NumOfDefaultWagons
@@ -49,7 +49,7 @@ namespace MyVehicle
             set
             {
                 numOfDefaultWagons = (value > 0) ? _ = value : _ = 4;
-                SetSeats(numOfSeatsPerBusinessW * numOfBusinessWagons + numOfSeatsPerDefaultW * numOfDefaultWagons);
+                RefreshSeats();
             }
         }
         int NumOfSeatsPerDefaultW
@@ -63,7 +63,7 @@ namespace MyVehicle
                     else NumOfSeatsPerDefaultW = value * 10;
                 }
                 else NumOfSeatsPerDefaultW = 64;
-                SetSeats(numOfSeatsPerBusinessW * numOfBusinessWagons + numOfSeatsPerDefaultW * numOfDefaultWagons);
+                RefreshSeats();
             }
         }
 
@@ -82,26 +82,17 @@ namespace MyVehicle
             }
         }
 
-        public override int Seats { get => seats; }
+        public new int Seats { get => seats; }
 
-        private void SetSeats(int value)
+        private void RefreshSeats()
         {
-            seats = value;
-            RefreshName();
+            seats = numOfSeatsPerBusinessW * numOfBusinessWagons + numOfSeatsPerDefaultW * numOfDefaultWagons;
             numOfSeatsPerWagon = (int)Math.Round((double)(numOfSeatsPerBusinessW + numOfSeatsPerDefaultW) / 2, MidpointRounding.AwayFromZero);
         }
-        public override string Name { get => name; }
-        private void SetName(string value)
-        {
-            name = value;
-        }
+        public new string Name { get => name; }
         private void RefreshName ()
         {
             name = $"{type} экспресс {routeNum}-{numOfLocomotives}-{numOfWagons}";
-        }
-        public void RefreshWeight()
-        {
-            weight = numOfWagons * wghtOfWagon + numOfLocomotives * wghtOfLocomotive;
         }
 
         public Express() 
@@ -139,12 +130,12 @@ namespace MyVehicle
             type = "пассажирский";
             numOfLocomotives = 2;
             numOfSeatsPerWagon = express.numOfSeatsPerWagon;
-            Seats = express.Seats;
+            routeNum = express.routeNum;
             numOfWagons = express.numOfWagons;
             wghtOfLocomotive = express.wghtOfLocomotive;
             wghtOfWagon = express.wghtOfWagon;
-            routeNum = express.routeNum;
             weight = express.weight;
+            seats =express.Seats;
         }
         public new object Clone()
         {

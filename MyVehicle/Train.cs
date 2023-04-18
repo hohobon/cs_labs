@@ -11,11 +11,11 @@ namespace MyVehicle
         protected int numOfWagons;
         protected int numOfLocomotives;
         protected int numOfSeatsPerWagon;
-        //int seatsPerWagon;
         protected string type;
         protected int wghtOfLocomotive;
         protected int wghtOfWagon;
         protected int routeNum;
+        protected new int seats;
 
         readonly string[] types =
         {
@@ -29,7 +29,9 @@ namespace MyVehicle
             {
                 if (value > 0) numOfWagons = value;
                 else numOfWagons = 0;
-                name = $"{type} поезд {routeNum}-{numOfLocomotives}-{numOfWagons}";
+                RefreshSeats();
+                RefreshName();
+                RefreshWeight();
             }
         }
         public string Type
@@ -38,7 +40,7 @@ namespace MyVehicle
             set
             {
                 type = value;
-                name = $"{type} поезд {routeNum}-{numOfLocomotives}-{numOfWagons}";
+                RefreshName();
             }
         }
         public int WghtOfLocomotive
@@ -46,8 +48,10 @@ namespace MyVehicle
             get => wghtOfLocomotive;
             set
             {
-                if (value > 0) wghtOfLocomotive = value;
+                if (value > 0) wghtOfLocomotive = value; 
                 else wghtOfLocomotive = 250;
+                RefreshWeight();
+                RefreshWeight();
             }
         }
         public int WghtOfWagon
@@ -57,6 +61,7 @@ namespace MyVehicle
             {
                 if (value > 0) wghtOfWagon = value;
                 else wghtOfWagon = 150;
+                RefreshWeight();
             }
         }
         virtual public int RouteNum
@@ -66,7 +71,7 @@ namespace MyVehicle
             {
                 if (value > 0 && value < 1000) routeNum = value;
                 else routeNum = 0;
-                name = $"{type} поезд {routeNum}-{numOfLocomotives}-{numOfWagons}";
+                RefreshName();
             }
         }
         public int NumOfLocomotives
@@ -74,9 +79,10 @@ namespace MyVehicle
             get => numOfLocomotives;
             set
             {
-                if (value != 1 && value != 2) numOfLocomotives = value;
-                else numOfLocomotives = 1;
-                name = $"{type} поезд {routeNum}-{numOfLocomotives}-{numOfWagons}";
+                if (value != 1 && value != 2) numOfLocomotives = 1;
+                else numOfLocomotives = value;
+                RefreshName();
+                RefreshWeight();
             }
 
         }
@@ -85,51 +91,56 @@ namespace MyVehicle
             get => numOfSeatsPerWagon;
             set
             {
-                if (value >= 0) numOfSeatsPerWagon = value;
-                else numOfSeatsPerWagon = 20;
+                if (value > 0) numOfSeatsPerWagon = value;
+                else numOfSeatsPerWagon = 0;
+                RefreshSeats();
             }
         }
-        
+        public new string Name { get => name; }
+        private void RefreshName()
+        {
+            name = $"{type} поезд {routeNum}-{numOfLocomotives}-{numOfWagons}";
+        }
+        private void RefreshWeight()
+        {
+            weight = numOfWagons * wghtOfWagon + numOfLocomotives * wghtOfLocomotive;
+        }
+        public new int Seats { get => seats; }
+
+        private void RefreshSeats()
+        {
+            seats = numOfSeatsPerWagon * numOfWagons;
+        }
 
         public Train()
         { 
-            numOfWagons = rnd.Next(0, 100);
-            numOfLocomotives = rnd.Next(0,3);
-            numOfSeatsPerWagon = rnd.Next(1,6) * 10;
-            type = types[rnd.Next(types.Length - 1)];
-            wghtOfLocomotive = rnd.Next(40 - 80) * 10;
-            wghtOfWagon = rnd.Next(10, 200);
-            routeNum = rnd.Next(1, 940);
-            weight = numOfWagons * wghtOfWagon + numOfLocomotives * wghtOfLocomotive;
-            name = $"{type} поезд {routeNum}-{numOfLocomotives}-{numOfWagons}";
-            seats = numOfSeatsPerWagon * numOfWagons;
+            NumOfWagons = rnd.Next(0, 100);
+            NumOfLocomotives = rnd.Next(1,2);
+            NumOfSeatsPerWagon = rnd.Next(1,6) * 10;
+            Type = types[rnd.Next(0, types.Length - 1)];
+            WghtOfLocomotive = rnd.Next(40, 60);
+            WghtOfWagon = rnd.Next(10, 200);
+            RouteNum = rnd.Next(1, 940);
         }
-        public Train(int numOfWagons, int numOfLocomotives, int numOfSeatsPerWagon, string type, int wghtOfLocomotive, int wghtOfWagon, int routeNum)
+        public Train(int numOfWagonsP, int numOfLocomotivesP, int numOfSeatsPerWagonP, string typeP, int wghtOfLocomotiveP, int wghtOfWagonP, int routeNumP)
         {
-            NumOfWagons = numOfWagons;
-            NumOfLocomotives = numOfLocomotives;
-            NumOfSeatsPerWagon = numOfSeatsPerWagon;
-            Type = type;
-            WghtOfLocomotive = wghtOfLocomotive;
-            WghtOfWagon = wghtOfWagon;
-            RouteNum = routeNum;
-            NumOfWagons = numOfWagons;
-            weight = numOfWagons * wghtOfWagon + numOfLocomotives * wghtOfLocomotive;
-            name = $"{type} поезд {routeNum}-{numOfLocomotives}-{numOfWagons}";
-            seats = numOfSeatsPerWagon * numOfWagons;
+            NumOfWagons = numOfWagonsP;
+            NumOfLocomotives = numOfLocomotivesP;
+            NumOfSeatsPerWagon = numOfSeatsPerWagonP;
+            Type = typeP;
+            WghtOfLocomotive = wghtOfLocomotiveP;
+            WghtOfWagon = wghtOfWagonP;
+            RouteNum = routeNumP;
         }
         public Train(Train train)
         {
-            numOfLocomotives = train.numOfLocomotives;
-            numOfWagons = train.numOfWagons;
-            numOfSeatsPerWagon = train.numOfSeatsPerWagon;
-            wghtOfLocomotive = train.wghtOfLocomotive;
-            wghtOfWagon = train.wghtOfWagon;
-            type = train.type;
-            routeNum = train.routeNum;
-            name = train.name;
-            weight = train.weight;
-            seats = train.seats;
+            NumOfLocomotives = train.numOfLocomotives;
+            NumOfWagons = train.numOfWagons;
+            NumOfSeatsPerWagon = train.numOfSeatsPerWagon;
+            WghtOfLocomotive = train.wghtOfLocomotive;
+            WghtOfWagon = train.wghtOfWagon;
+            Type = train.type;
+            RouteNum = train.routeNum;
         }
         public override string ToString()
         {
@@ -147,7 +158,7 @@ namespace MyVehicle
         public new object Clone()
         {
             Train cloneTrain = new Train(this);
-            cloneTrain.name = "Клон" + this.name;
+            cloneTrain.Type = "клон" + this.Type;
             return cloneTrain;
         }
         public override Vehicle ShallowCopy()

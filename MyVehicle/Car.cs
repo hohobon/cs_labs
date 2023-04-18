@@ -33,7 +33,7 @@ namespace MyVehicle
           "BMV", "Audi", "Bugatti", "Buick", "Cadillac",
           "Chery", "Citroen", "Fiat", "Honda", "Jeep", "Lexus",
         };
-        public string Name{ get => name; }
+        public new string Name{ get => name; }
         private void RefreshName()
         {
             name = brand + " " + model;
@@ -154,7 +154,7 @@ namespace MyVehicle
                 $"Вес {weight}\n"
             );
         }
-        public new object Clone() => new Car("клон" + brand, model, type, bodyWork, engineСapacity, year, weight, seats);
+        public new object Clone() => new Car("клон " + brand, model, type, bodyWork, engineСapacity, year, weight, seats);
         public override Vehicle ShallowCopy()
         {
             return (Car)MemberwiseClone();
