@@ -17,12 +17,20 @@ namespace MyVehicle
         protected int seats;
         protected readonly Random  rnd = new Random();
 
-        virtual public string Name { get => name; set => name = value; }
+        static readonly string[] names =
+        {
+             "Велосипед", "Самолёт", "Самокат", "Поезд", "Машина",
+             "Мотоцикл", "Скутер", "Катер", "Корабль", "Яхта",
+             "Внедорожник", "Фургон", "Истребитель", "Экспересс",
+             "Багги", "Вертолёт", "Повозка"
+        };
+        public virtual string Name { get => name; set => name = value; }
         
-        virtual public double Weight 
+        public virtual double Weight 
         {   get => weight; 
-            set 
-            {   if (value > 0) weight = value;
+            set
+            {   
+                if (value > 0) weight = value;
                 else 
                 {
                     Console.WriteLine("Вес не может быть отрицательным\nПрисвоено 0 кг\n"); 
@@ -30,42 +38,33 @@ namespace MyVehicle
                 }
             } 
         }
-        virtual public int Seats
+        public virtual int Seats
         {
             get => seats;
             set
             {
                 if (value > 0) seats = value;
-                else seats = 0;
-                
+                else seats = 1;
             }
         }
 
         public Vehicle()
         {
-            string[] names = 
-            { 
-                "Велосипед", "Самолёт", "Самокат", "Поезд", "Машина", 
-                "Мотоцикл", "Скутер", "Катер", "Корабль", "Яхта", 
-                "Внедорожник", "Фургон", "Истребитель", "Экспересс", 
-                "Багги", "Вертолёт", "Повозка" 
-            };
-
             Name = names[rnd.Next(0, names.Length - 1)];
             Weight = Math.Round(0.01 * rnd.Next(1, 8600), 2) + 0.1;
             Seats = rnd.Next(1, 20);
         }
-        public Vehicle(string n, double w, int seats)
+        public Vehicle(string n, double w, int s)
         {
             Name = n;
             Weight = w;
-            Seats = seats;
+            Seats = s;
         }
         public Vehicle(Vehicle vehicle)
         {
-            name = vehicle.Name;
-            weight = vehicle.Weight;
-            seats = vehicle.Seats;
+            Name = vehicle.Name;
+            Weight = vehicle.Weight;
+            Seats = vehicle.Seats;
         }
         public override string ToString()
         {
@@ -76,7 +75,7 @@ namespace MyVehicle
             Console.WriteLine($"Транспорт средство:\nНазвание: {name}\nВес: {weight}\nМест: {seats}");
         }
 
-        public object Clone()
+        public virtual object Clone()
         {
             Vehicle cloneVehicle = new Vehicle(this);
             return cloneVehicle;

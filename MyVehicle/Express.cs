@@ -9,60 +9,61 @@ namespace MyVehicle
 {
     public class Express : Train
     {
-        protected readonly new string type;
-        protected int numOfBusinessWagons;
-        protected int numOfDefaultWagons;
-        protected int numOfSeatsPerBusinessW;
-        protected int numOfSeatsPerDefaultW;
-        protected new readonly int numOfLocomotives;
-        protected new int numOfWagons;
-        protected new int numOfSeatsPerWagon;
-        private new int seats;
-        private new string name;
+        public override string Type => type;
+        public override int NumOfLocomotives => numOfLocomotives;
 
-        int NumOfBusinessWagons
+        private int numOfBusinessWagons;
+        private int numOfDefaultWagons;
+        private int numOfSeatsPerBusinessW;
+        private int numOfSeatsPerDefaultW;
+
+        public int NumOfBusinessWagons
         {
             get => numOfBusinessWagons;
             set
             {
-                numOfBusinessWagons = (value > 0) ? _ = value : _ = 4;
+                if (value > 0) numOfBusinessWagons = value;
+                else numOfBusinessWagons = 4;
                 RefreshSeats();
+                RefreshWagons();
             }
         }
-        int NumOfSeatsPerBusinessW
+        public int NumOfSeatsPerBusinessW
         {
             get => numOfSeatsPerBusinessW;
-            set 
+            set
             {
                 if (value > 0 && value < 99)
                 {
-                    if (value > 9) numOfBusinessWagons = value;
-                    else numOfBusinessWagons = value * 10;
+                    if (value > 9) numOfSeatsPerBusinessW = value;
+                    else numOfSeatsPerBusinessW = value * 10;
                 }
-                else numOfBusinessWagons = 48;
+                else numOfSeatsPerBusinessW = 48;
                 RefreshSeats();
             }
         }
-        int NumOfDefaultWagons
+        public int NumOfDefaultWagons
         {
             get => numOfDefaultWagons;
             set
             {
-                numOfDefaultWagons = (value > 0) ? _ = value : _ = 4;
+                if(value > 0) numOfDefaultWagons = value;
+                else numOfDefaultWagons = 4;
                 RefreshSeats();
+                RefreshWagons();
             }
         }
-        int NumOfSeatsPerDefaultW
+        public int NumOfSeatsPerDefaultW
         {
-            get => NumOfSeatsPerDefaultW;
+            get => numOfSeatsPerDefaultW;
             set
             {
                 if (value > 0 && value < 99)
                 {
-                    if (value > 9) NumOfSeatsPerDefaultW = value;
-                    else NumOfSeatsPerDefaultW = value * 10;
+                    if (value > 9) numOfSeatsPerDefaultW = value;
+                    else numOfSeatsPerDefaultW = value * 10;
                 }
-                else NumOfSeatsPerDefaultW = 64;
+                else numOfSeatsPerDefaultW = 64;
                 RefreshSeats();
             }
         }
@@ -70,6 +71,11 @@ namespace MyVehicle
         public override int NumOfWagons
         {
             get => numOfWagons;
+        }
+        private void RefreshWagons()
+        {
+            numOfWagons = numOfBusinessWagons + numOfDefaultWagons;
+            RefreshName();
         }
         public override int RouteNum
         {
@@ -82,14 +88,14 @@ namespace MyVehicle
             }
         }
 
-        public new int Seats { get => seats; }
+        public override int Seats { get => seats; }
 
         private void RefreshSeats()
         {
             seats = numOfSeatsPerBusinessW * numOfBusinessWagons + numOfSeatsPerDefaultW * numOfDefaultWagons;
             numOfSeatsPerWagon = (int)Math.Round((double)(numOfSeatsPerBusinessW + numOfSeatsPerDefaultW) / 2, MidpointRounding.AwayFromZero);
         }
-        public new string Name { get => name; }
+        public override string Name { get => name; }
         private void RefreshName ()
         {
             name = $"{type} экспресс {routeNum}-{numOfLocomotives}-{numOfWagons}";
@@ -97,22 +103,20 @@ namespace MyVehicle
 
         public Express() 
         {
-            numOfBusinessWagons = rnd.Next(4, 8);
-            numOfDefaultWagons = rnd.Next(4, 12);
-            numOfSeatsPerBusinessW = 48;
-            numOfSeatsPerDefaultW = 64;
-            type = "пассажирский";
+            type = "Пассажирский";
             numOfLocomotives = 2;
-            numOfSeatsPerWagon = (int)Math.Round((double)(numOfSeatsPerBusinessW + numOfSeatsPerDefaultW)/2, MidpointRounding.AwayFromZero);
-            seats = numOfSeatsPerBusinessW * numOfBusinessWagons + numOfSeatsPerDefaultW * numOfDefaultWagons;
-            numOfWagons = numOfBusinessWagons + numOfDefaultWagons;
-            wghtOfLocomotive = rnd.Next(20 - 40) * 10;
-            wghtOfWagon = rnd.Next(10, 20) * 10;
-            routeNum = rnd.Next(700, 890);
-            weight = numOfWagons * wghtOfWagon + numOfLocomotives * wghtOfLocomotive;
+            RouteNum = rnd.Next(700, 890);
+            NumOfBusinessWagons = rnd.Next(4, 8);
+            NumOfDefaultWagons = rnd.Next(4, 12);
+            NumOfSeatsPerBusinessW = 48;
+            NumOfSeatsPerDefaultW = 64;
+            WghtOfLocomotive = rnd.Next(20, 40) * 10;
+            WghtOfWagon = rnd.Next(10, 20) * 10;
         }
         public Express(int routeID, int numOfBW, int numOfSPerBW, int numOfDW, int numOfSPerDW, int wghtOfW, int wghtOfL)
         {
+            type = "Пассажирский";
+            numOfLocomotives = 2;
             RouteNum = routeID;
             NumOfBusinessWagons = numOfBW;
             NumOfSeatsPerBusinessW = numOfSPerBW;
@@ -123,21 +127,18 @@ namespace MyVehicle
         }
         public Express (Express express)
         {
-            numOfBusinessWagons = express.numOfBusinessWagons;
-            numOfDefaultWagons = express.numOfDefaultWagons;
-            numOfSeatsPerBusinessW = express.numOfSeatsPerBusinessW;
-            numOfSeatsPerDefaultW = express.numOfSeatsPerDefaultW;
-            type = "пассажирский";
+            type = "Пассажирский";
             numOfLocomotives = 2;
-            numOfSeatsPerWagon = express.numOfSeatsPerWagon;
-            routeNum = express.routeNum;
-            numOfWagons = express.numOfWagons;
-            wghtOfLocomotive = express.wghtOfLocomotive;
-            wghtOfWagon = express.wghtOfWagon;
-            weight = express.weight;
-            seats =express.Seats;
+            RouteNum = express.RouteNum;
+            NumOfBusinessWagons = express.NumOfBusinessWagons;
+            NumOfDefaultWagons = express.NumOfDefaultWagons;
+            NumOfSeatsPerBusinessW = express.NumOfSeatsPerBusinessW;
+            NumOfSeatsPerDefaultW = express.NumOfSeatsPerDefaultW;
+            NumOfSeatsPerWagon = express.NumOfSeatsPerWagon;
+            WghtOfLocomotive = express.WghtOfLocomotive;
+            WghtOfWagon = express.WghtOfWagon;
         }
-        public new object Clone()
+        public override object Clone()
         {
             Express expressClone = new Express(this);
             expressClone.name = "Клон " + this.name;
@@ -150,7 +151,7 @@ namespace MyVehicle
         public override bool Equals(object obj)
         {
             Express v = (Express)obj;
-            return name == v.Name && weight == v.Weight;
+            return name == v.Name && weight == v.Weight && seats == v.Seats;
         }
         public override int GetHashCode()
         {
@@ -158,7 +159,7 @@ namespace MyVehicle
         }
         public override int CompareTo(object obj)
         {
-            return string.Compare(name, ((Express)obj).name);
+            return string.Compare(Name, ((Express)obj).Name);
         }
     }
 }

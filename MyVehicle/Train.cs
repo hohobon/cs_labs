@@ -15,14 +15,13 @@ namespace MyVehicle
         protected int wghtOfLocomotive;
         protected int wghtOfWagon;
         protected int routeNum;
-        protected new int seats;
 
-        readonly string[] types =
+        private readonly string[] types =
         {
             "пассажирский","грузовой","хозяйственный",
             "воинский", "санитарный", "броневой"
         };
-        virtual public int NumOfWagons
+        public virtual int NumOfWagons
         {
             get => numOfWagons;
             set
@@ -34,7 +33,7 @@ namespace MyVehicle
                 RefreshWeight();
             }
         }
-        public string Type
+        public virtual string Type
         {
             get => type;
             set
@@ -48,7 +47,7 @@ namespace MyVehicle
             get => wghtOfLocomotive;
             set
             {
-                if (value > 0) wghtOfLocomotive = value; 
+                if (value > 0) wghtOfLocomotive = value;
                 else wghtOfLocomotive = 250;
                 RefreshWeight();
                 RefreshWeight();
@@ -64,7 +63,7 @@ namespace MyVehicle
                 RefreshWeight();
             }
         }
-        virtual public int RouteNum
+        public virtual int RouteNum
         {
             get => routeNum;
             set
@@ -74,7 +73,7 @@ namespace MyVehicle
                 RefreshName();
             }
         }
-        public int NumOfLocomotives
+        public virtual int NumOfLocomotives
         {
             get => numOfLocomotives;
             set
@@ -96,16 +95,17 @@ namespace MyVehicle
                 RefreshSeats();
             }
         }
-        public new string Name { get => name; }
+        public override string Name => name; 
         private void RefreshName()
         {
             name = $"{type} поезд {routeNum}-{numOfLocomotives}-{numOfWagons}";
         }
+        public override double Weight => weight;
         private void RefreshWeight()
         {
             weight = numOfWagons * wghtOfWagon + numOfLocomotives * wghtOfLocomotive;
         }
-        public new int Seats { get => seats; }
+        public override int Seats => seats;
 
         private void RefreshSeats()
         {
@@ -155,7 +155,7 @@ namespace MyVehicle
                 $"вес {weight}т\n"
             );
         }
-        public new object Clone()
+        public override object Clone()
         {
             Train cloneTrain = new Train(this);
             cloneTrain.Type = "клон" + this.Type;

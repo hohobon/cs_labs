@@ -51,10 +51,12 @@
   <ItemGroup>
     <Compile Include="CarClassTests.cs" />
     <Compile Include="TrainClassTests.cs" />
+    <Compile Include="ExpressClassTests.cs" />
     <Compile Include="VehicleClassTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -19,7 +19,6 @@ namespace MyVehicle
         protected string bodyWork;
         protected double engineСapacity;
         protected int year;
-        protected new string name;
 
         readonly char[] types = { 'A', 'B', 'C', 'D', 'E', 'F', 'J', 'M', 'S' };
         readonly string[] bodyWorks =
@@ -33,11 +32,6 @@ namespace MyVehicle
           "BMV", "Audi", "Bugatti", "Buick", "Cadillac",
           "Chery", "Citroen", "Fiat", "Honda", "Jeep", "Lexus",
         };
-        public new string Name{ get => name; }
-        private void RefreshName()
-        {
-            name = brand + " " + model;
-        }
         
         readonly string[] models =
         {
@@ -136,6 +130,11 @@ namespace MyVehicle
             this.engineСapacity = car.engineСapacity;
             this.year = car.year;
         }
+        public override string Name => name;
+        private void RefreshName()
+        {
+            name = brand + " " + model;
+        }
         public override string ToString()
         {
             return $"атвомобиль {bodyWork} категории {type} {name} {year}г";
@@ -162,7 +161,7 @@ namespace MyVehicle
         public override bool Equals(object obj)
         {
             Car v = (Car)obj;
-            return name == v.Name && weight == v.Weight;
+            return name == v.Name && weight == v.Weight && seats == v.Seats ;
         }
         public override int GetHashCode()
         {
