@@ -1,21 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
-using MyVehicle;
 
 namespace MyVehicle
 {
     public interface IExecutable { void Show(); }
 
-    public class Vehicle: IExecutable, ICloneable, IComparable
+    public class Vehicle : IExecutable, ICloneable, IComparable
     {
         protected string name;
         protected double weight; //  Kg
         protected int seats;
-        protected readonly Random  rnd = new Random();
+        protected static Random rnd = new Random();
 
         static readonly string[] names =
         {
@@ -25,18 +19,19 @@ namespace MyVehicle
              "Багги", "Вертолёт", "Повозка"
         };
         public virtual string Name { get => name; set => name = value; }
-        
-        public virtual double Weight 
-        {   get => weight; 
+
+        public virtual double Weight
+        {
+            get => weight;
             set
-            {   
-                if (value > 0) weight = value;
-                else 
+            {
+                if (value >= 0) weight = value;
+                else
                 {
-                    Console.WriteLine("Вес не может быть отрицательным\nПрисвоено 0 кг\n"); 
-                    weight = 0; 
+                    Console.WriteLine("Вес не может быть отрицательным\nПрисвоено 0 кг\n");
+                    weight = 0;
                 }
-            } 
+            }
         }
         public virtual int Seats
         {
@@ -72,7 +67,7 @@ namespace MyVehicle
         }
         public virtual void Show()
         {
-            Console.WriteLine($"Транспорт средство:\nНазвание: {name}\nВес: {weight}\nМест: {seats}");
+            Console.WriteLine($"Транспорт средство:\nНазвание: {name}\nВес: {weight}\nМест: {seats}\n");
         }
 
         public virtual object Clone()

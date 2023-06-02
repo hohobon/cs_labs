@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyVehicle
 {
@@ -47,7 +42,7 @@ namespace MyVehicle
             get => numOfDefaultWagons;
             set
             {
-                if(value > 0) numOfDefaultWagons = value;
+                if (value > 0) numOfDefaultWagons = value;
                 else numOfDefaultWagons = 4;
                 RefreshSeats();
                 RefreshWagons();
@@ -96,12 +91,12 @@ namespace MyVehicle
             numOfSeatsPerWagon = (int)Math.Round((double)(numOfSeatsPerBusinessW + numOfSeatsPerDefaultW) / 2, MidpointRounding.AwayFromZero);
         }
         public override string Name { get => name; }
-        private void RefreshName ()
+        private void RefreshName()
         {
             name = $"{type} экспресс {routeNum}-{numOfLocomotives}-{numOfWagons}";
         }
 
-        public Express() 
+        public Express()
         {
             type = "Пассажирский";
             numOfLocomotives = 2;
@@ -125,7 +120,7 @@ namespace MyVehicle
             WghtOfLocomotive = wghtOfL;
             WghtOfWagon = wghtOfW;
         }
-        public Express (Express express)
+        public Express(Express express)
         {
             type = "Пассажирский";
             numOfLocomotives = 2;

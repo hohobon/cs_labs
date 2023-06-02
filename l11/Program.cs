@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyVehicle;
-
-namespace l11
+﻿namespace l11
 {
     internal class Program
     {

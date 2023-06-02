@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using MyVehicle;
 
 namespace VehicleClassTests
@@ -29,7 +28,7 @@ namespace VehicleClassTests
             Assert.AreEqual(false, expected.Equals(actual));
         }
         [TestMethod]
-        public void CarImpossiblePropertySetTests() 
+        public void CarImpossiblePropertySetTests()
         {
             Car expected = new Car(car.Name, car.Brand, car.Type, car.BodyWork, 0.5, 1, 0, 1);
             Car actual = expected;

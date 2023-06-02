@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using MyVehicle;
 
 namespace VehicleClassTests
@@ -8,7 +7,7 @@ namespace VehicleClassTests
     public class ExpressClassTests
     {
         Express express;
-        [TestInitialize] 
+        [TestInitialize]
         public void Init() { express = new Express(1, 1, 10, 1, 10, 10, 10); }
         [TestMethod]
         public void ExpressConstructPropSetEqualsTests()
@@ -37,10 +36,10 @@ namespace VehicleClassTests
             actual.RouteNum = -1;
             actual.NumOfBusinessWagons = -1;
             actual.NumOfSeatsPerBusinessW = -1;
-            actual.NumOfDefaultWagons= -1;
-            actual.NumOfSeatsPerDefaultW= -1;
-            actual.WghtOfWagon= -1;
-            actual.WghtOfLocomotive= -1;
+            actual.NumOfDefaultWagons = -1;
+            actual.NumOfSeatsPerDefaultW = -1;
+            actual.WghtOfWagon = -1;
+            actual.WghtOfLocomotive = -1;
 
             Assert.AreEqual(true, expected.Equals(actual));
         }

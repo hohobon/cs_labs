@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using MyVehicle;
-using System.Runtime.ConstrainedExecution;
 
 namespace VehicleClassTests
 {
@@ -9,16 +7,16 @@ namespace VehicleClassTests
     public class TrainClassTests
     {
         Train train;
-        [TestInitialize] 
-        public void Init() 
+        [TestInitialize]
+        public void Init()
         {
-            train = new Train(1,1,1,"testType", 1, 1, 1);
+            train = new Train(1, 1, 1, "testType", 1, 1, 1);
         }
         [TestMethod]
         public void TrainConstructPropSetEqualsTests()
         {
             Train expected = new Train(1, 1, 1, "testType", 1, 1, 1);
-            Train actual =  new Train();
+            Train actual = new Train();
             actual.NumOfWagons = 1;
             actual.NumOfLocomotives = 1;
             actual.NumOfSeatsPerWagon = 1;
@@ -26,7 +24,7 @@ namespace VehicleClassTests
             actual.WghtOfLocomotive = 1;
             actual.WghtOfWagon = 1;
             actual.RouteNum = 1;
-            
+
             Assert.AreEqual(expected, actual);
 
             expected = new Train(train);
@@ -36,8 +34,8 @@ namespace VehicleClassTests
         [TestMethod]
         public void TrainImpossiblePropSetTests()
         {
-            Train expected = new Train(0,3,0,"test", 250, 150,0);
-            Train actual = new Train(-1,-1,-1,"test",-1,-1,-1);
+            Train expected = new Train(0, 3, 0, "test", 250, 150, 0);
+            Train actual = new Train(-1, -1, -1, "test", -1, -1, -1);
 
             Assert.AreEqual(expected, actual);
         }

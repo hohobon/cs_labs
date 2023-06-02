@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MyVehicle 
+namespace MyVehicle
 {
     public class Car : Vehicle
     {
@@ -32,7 +23,7 @@ namespace MyVehicle
           "BMV", "Audi", "Bugatti", "Buick", "Cadillac",
           "Chery", "Citroen", "Fiat", "Honda", "Jeep", "Lexus",
         };
-        
+
         readonly string[] models =
         {
             "A1", "A2", "A3", "A4",
@@ -80,7 +71,7 @@ namespace MyVehicle
                 else
                 {
                     Console.WriteLine("объем двигателя не может быть отрицательным\n Присовено 0.5\n");
-                    engineСapacity = 0.5; 
+                    engineСapacity = 0.5;
                 }
             }
         }
@@ -161,7 +152,7 @@ namespace MyVehicle
         public override bool Equals(object obj)
         {
             Car v = (Car)obj;
-            return name == v.Name && weight == v.Weight && seats == v.Seats ;
+            return name == v.Name && weight == v.Weight && seats == v.Seats;
         }
         public override int GetHashCode()
         {

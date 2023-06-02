@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyVehicle
 {
@@ -95,7 +91,7 @@ namespace MyVehicle
                 RefreshSeats();
             }
         }
-        public override string Name => name; 
+        public override string Name => name;
         private void RefreshName()
         {
             name = $"{type} поезд {routeNum}-{numOfLocomotives}-{numOfWagons}";
@@ -113,10 +109,10 @@ namespace MyVehicle
         }
 
         public Train()
-        { 
+        {
             NumOfWagons = rnd.Next(0, 100);
-            NumOfLocomotives = rnd.Next(1,2);
-            NumOfSeatsPerWagon = rnd.Next(1,6) * 10;
+            NumOfLocomotives = rnd.Next(1, 2);
+            NumOfSeatsPerWagon = rnd.Next(1, 6) * 10;
             Type = types[rnd.Next(0, types.Length - 1)];
             WghtOfLocomotive = rnd.Next(40, 60);
             WghtOfWagon = rnd.Next(10, 200);
@@ -150,7 +146,7 @@ namespace MyVehicle
         {
             Console.WriteLine
             (
-                $"поезд {name}\n"+
+                $"поезд {name}\n" +
                 $"мест {seats}\n" +
                 $"вес {weight}т\n"
             );
