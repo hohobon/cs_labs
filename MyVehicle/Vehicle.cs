@@ -1,8 +1,40 @@
 ﻿using System;
+using System.Collections;
 
 namespace MyVehicle
 {
     public interface IExecutable { void Show(); }
+
+
+    public class SortByWeigh : IComparer
+    {
+        int IComparer.Compare(object x, object y)
+        {
+            Vehicle v1 = (Vehicle)x;
+            Vehicle v2 = (Vehicle)y;
+            if (v1.Weight > v2.Weight) return 1;
+            if (v1.Weight < v2.Weight) return -1;
+            return 0;
+        }
+    }
+    public class SortByName : IComparer
+    {
+        int IComparer.Compare(object x, object y)
+        {
+            return string.Compare(((Vehicle)x).Name, ((Vehicle)y).Name);
+        }
+    }
+    public class sortBySeats : IComparer
+    {
+        int IComparer.Compare(object x, object y)
+        {
+            Vehicle v1 = (Vehicle)x;
+            Vehicle v2 = (Vehicle)y;
+            if (v1.Seats > v2.Seats) return 1;
+            if (v1.Seats < v2.Seats) return -1;
+            return 0;
+        }
+    }
 
     public class Vehicle : IExecutable, ICloneable, IComparable
     {

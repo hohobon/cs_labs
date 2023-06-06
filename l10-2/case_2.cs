@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ENTGS;
 using MyVehicle;
-using ENTGS;
-using System.ComponentModel.Design;
+using System;
 
 namespace l10_2
 {
@@ -14,14 +9,14 @@ namespace l10_2
         static public void option1()
         {
             Console.WriteLine("Введите кол-во экспрессов\n");
-            int numOfExpresses =  Enter.Int();
+            int numOfExpresses = Enter.Int();
             int sumOfBusinessSeats = 0;
             Express[] expresses = new Express[numOfExpresses];
-            for (int i = 0; i < numOfExpresses; i++) 
+            for (int i = 0; i < numOfExpresses; i++)
             {
                 expresses[i] = new Express();
             }
-            foreach (Express exp in expresses) 
+            foreach (Express exp in expresses)
             {
                 Console.WriteLine(exp.ToString() + $"Мест бизнесс класса {exp.NumOfSeatsPerBusinessW * exp.NumOfBusinessWagons}\n");
                 sumOfBusinessSeats += exp.NumOfSeatsPerBusinessW * exp.NumOfBusinessWagons;
@@ -32,7 +27,7 @@ namespace l10_2
         {
             Console.WriteLine("Введите кол-во автомобилей\n");
             int numOfCars = Enter.Int();
-            Car fatCar = new Car("0","0",'0',"0",0,0,0,0);
+            Car fatCar = new Car("0", "0", '0', "0", 0, 0, 0, 0);
             Car[] cars = new Car[numOfCars];
             for (int i = 0; i < numOfCars; i++)
             {

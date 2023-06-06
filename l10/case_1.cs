@@ -1,7 +1,6 @@
-﻿using MyVehicle;
-using ENTGS;
+﻿using ENTGS;
+using MyVehicle;
 using System;
-using System.Globalization;
 
 namespace l10
 {
@@ -14,9 +13,9 @@ namespace l10
             Random rnd = new Random();
             Object[] mass = new Object[size];
             int switchChoice;
-             for (int i = 0; i < size; i++) 
+            for (int i = 0; i < size; i++)
             {
-                switchChoice = rnd.Next(1,5);
+                switchChoice = rnd.Next(1, 5);
                 switch (switchChoice)
                 {
                     case 1:
