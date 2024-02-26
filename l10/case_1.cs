@@ -4,7 +4,7 @@ using System;
 
 namespace l10
 {
-    internal class case_1
+    internal class Case_1
     {
         static void Main(string[] args)
         {

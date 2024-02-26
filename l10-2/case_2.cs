@@ -4,7 +4,7 @@ using System;
 
 namespace l10_2
 {
-    internal class case_2
+    internal class Case_2
     {
         static public void option1()
         {
@@ -23,7 +23,7 @@ namespace l10_2
             }
             Console.WriteLine($"Кол-во мест бизнес класса во всех Эксспресса:\n {sumOfBusinessSeats}\n");
         }
-        static public void option2()
+        static public void Option2()
         {
             Console.WriteLine("Введите кол-во автомобилей\n");
             int numOfCars = Enter.Int();
@@ -75,7 +75,7 @@ namespace l10_2
                 switch (menuChoice)
                 {
                     case 1: option1(); break;
-                    case 2: option2(); break;
+                    case 2: Option2(); break;
                     case 3: option3(); break;
                     case 4: menuCycle = false; break;
                 }

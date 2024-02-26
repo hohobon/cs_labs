@@ -16,14 +16,16 @@ namespace VehicleClassTests
         public void TrainConstructPropSetEqualsTests()
         {
             Train expected = new Train(1, 1, 1, "testType", 1, 1, 1);
-            Train actual = new Train();
-            actual.NumOfWagons = 1;
-            actual.NumOfLocomotives = 1;
-            actual.NumOfSeatsPerWagon = 1;
-            actual.Type = "testType";
-            actual.WghtOfLocomotive = 1;
-            actual.WghtOfWagon = 1;
-            actual.RouteNum = 1;
+            Train actual = new Train
+            {
+                NumOfWagons = 1,
+                NumOfLocomotives = 1,
+                NumOfSeatsPerWagon = 1,
+                Type = "testType",
+                WghtOfLocomotive = 1,
+                WghtOfWagon = 1,
+                RouteNum = 1
+            };
 
             Assert.AreEqual(expected, actual);
 
